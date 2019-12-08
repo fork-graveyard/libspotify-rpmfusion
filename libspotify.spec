@@ -1,15 +1,15 @@
 Name:		libspotify
 Version:	12.1.51
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Official Spotify API
 Group:		Development/Libraries
 License:	Redistributable, no modification permitted
-URL:		http://developer.spotify.com/en/libspotify/overview/
-Source0:	http://developer.spotify.com/download/libspotify/libspotify-%{version}-Linux-i686-release.tar.gz
-Source1:	http://developer.spotify.com/download/libspotify/libspotify-%{version}-Linux-x86_64-release.tar.gz
-Source2:        http://developer.spotify.com/download/libspotify/libspotify-%{version}-Linux-armv5-release.tar.gz
-Source3:        http://developer.spotify.com/download/libspotify/libspotify-%{version}-Linux-armv6-release.tar.gz
-Source4:        http://developer.spotify.com/download/libspotify/libspotify-%{version}-Linux-armv7-release.tar.gz
+URL:		https://mopidy.github.io/libspotify-archive/
+Source0:	https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-i686-release.tar.gz
+Source1:	https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-x86_64-release.tar.gz
+Source2:        https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv5-release.tar.gz
+Source3:        https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv6-release.tar.gz
+Source4:        https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv7-release.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 ExclusiveArch:	i686 x86_64 armv5tel armv6l armv7l
 
@@ -95,6 +95,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Dec 08 2019 Tobias Girstmair <t-rpmfusion@girst.at> - 12.1.51-6
+- Change upstream to Mopidy's Spotify SDK archive
+
 * Sun Mar 26 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 12.1.51-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
