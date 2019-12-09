@@ -29,10 +29,10 @@ This contains the files needed to develop using libspotify
 %setup -q -b 1 -n %{name}-%{version}-Linux-x86_64-release
 sed -i 's,prefix)/lib,prefix)/lib64,g' Makefile
 %endif
-%ifarch armv7l
+%ifarch armv7hl
 %setup -q -b 4 -n %{name}-%{version}-Linux-armv7-release
 %endif
-%ifnarch i686 x86_64 armv7l
+%ifnarch i686 x86_64 armv7hl
 echo "This cpu architecture is not supported"
 exit 1
 %endif
@@ -41,7 +41,7 @@ rm -f Makefile
 mv Makefile.new Makefile
 
 %install
-%ifnarch i686 x86_64 armv7l
+%ifnarch i686 x86_64 armv7hl
 echo "This cpu architecture is not supported"
 exit 1
 %endif
