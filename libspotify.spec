@@ -60,14 +60,14 @@ chmod 644 %{buildroot}%{_includedir}/libspotify/*
 %build
 
 %files
-%defattr(-,root,root,-)
 %license LICENSE licenses.xhtml
 %doc README
 %{_libdir}/libspotify.so.12
+%{_libdir}/libspotify.so.12.1.51
 
 %files devel
-%defattr(-,root,root,-)
-%doc LICENSE README licenses.xhtml
+%license LICENSE licenses.xhtml
+%doc README
 %{_includedir}/*
 %{_libdir}/libspotify.so
 %{_libdir}/pkgconfig/*
@@ -76,6 +76,7 @@ chmod 644 %{buildroot}%{_includedir}/libspotify/*
 %changelog
 * Sun Dec 08 2019 Tobias Girstmair <t-rpmfusion@girst.at> - 12.1.51-6
 - Change upstream to Mopidy's Spotify SDK archive
+- Remove unsupported arches armv5 and armv6
 
 * Sun Mar 26 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 12.1.51-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
