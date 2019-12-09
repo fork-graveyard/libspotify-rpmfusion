@@ -2,16 +2,12 @@ Name:		libspotify
 Version:	12.1.51
 Release:	6%{?dist}
 Summary:	Official Spotify API
-Group:		Development/Libraries
 License:	Redistributable, no modification permitted
 URL:		https://mopidy.github.io/libspotify-archive/
 Source0:	https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-i686-release.tar.gz
 Source1:	https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-x86_64-release.tar.gz
-Source2:        https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv5-release.tar.gz
-Source3:        https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv6-release.tar.gz
-Source4:        https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv7-release.tar.gz
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-ExclusiveArch:	i686 x86_64 armv5tel armv6l armv7l
+Source4:	https://mopidy.github.io/libspotify-archive/libspotify-%{version}-Linux-armv7-release.tar.gz
+ExclusiveArch:	i686 x86_64 armv7hl
 
 %description
 libspotify is the official Spotify API.  Applications can use this API to play
@@ -20,7 +16,7 @@ Premium Account.
 
 %package devel
 Summary:	Development files for official Spotify API
-Requires:	libspotify = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 This contains the files needed to develop using libspotify
@@ -31,21 +27,12 @@ This contains the files needed to develop using libspotify
 %endif
 %ifarch x86_64
 %setup -q -b 1 -n %{name}-%{version}-Linux-x86_64-release
-# There must be a prettier way of doing this
-sed -i s/"\/lib\/"/"\/lib64\/"/g Makefile
-sed -i s/"\/lib$"/"\/lib64"/g Makefile
-sed -i s/"\/lib "/"\/lib64 "/g Makefile
-%endif
-%ifarch armv5tel
-%setup -q -b 2 -n %{name}-%{version}-Linux-armv5-release
-%endif
-%ifarch armv6l
-%setup -q -b 3 -n %{name}-%{version}-Linux-armv6-release
+sed -i 's,prefix)/lib,prefix)/lib64,g' Makefile
 %endif
 %ifarch armv7l
 %setup -q -b 4 -n %{name}-%{version}-Linux-armv7-release
 %endif
-%ifnarch i686 x86_64 armv5tel armv6l armv7l
+%ifnarch i686 x86_64 armv7l
 echo "This cpu architecture is not supported"
 exit 1
 %endif
@@ -54,14 +41,13 @@ rm -f Makefile
 mv Makefile.new Makefile
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%ifnarch i686 x86_64 armv5tel armv6l armv7l
+%ifnarch i686 x86_64 armv7l
 echo "This cpu architecture is not supported"
 exit 1
 %endif
-make install prefix=$RPM_BUILD_ROOT/usr
+make install prefix=%{buildroot}/usr
 ls -l ./
-cd $RPM_BUILD_ROOT%{_libdir}/pkgconfig
+cd %{buildroot}%{_libdir}/pkgconfig
 cat libspotify.pc | grep -v "^prefix=" > libspotify.pc.new
 echo "prefix=/usr" > libspotify.pc
 cat libspotify.pc.new >> libspotify.pc
@@ -69,22 +55,15 @@ rm -f libspotify.pc.new
 %ifarch x86_64
 sed -i s/"\/lib"/"\/lib64"/g libspotify.pc
 %endif
-chmod 644 $RPM_BUILD_ROOT%{_includedir}/libspotify/*
+chmod 644 %{buildroot}%{_includedir}/libspotify/*
 
 %build
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
-
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README licenses.xhtml
-%{_libdir}/libspotify.so.*
+%license LICENSE licenses.xhtml
+%doc README
+%{_libdir}/libspotify.so.12
 
 %files devel
 %defattr(-,root,root,-)
