@@ -6,7 +6,7 @@ Release:        1%{?dist}
 Summary:        Mopidy extension for playing music from Spotify
 
 License:        ASL 2.0
-URL:            https://mopidy.com/ext/mpd/
+URL:            https://mopidy.com/ext/spotify/
 Source0:        %{pypi_source}
 
 ExclusiveArch:  i686 x86_64 armv7hl
