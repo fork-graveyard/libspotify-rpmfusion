@@ -9,6 +9,8 @@ License:        ASL 2.0
 URL:            https://mopidy.com/ext/mpd/
 Source0:        %{pypi_source}
 
+ExclusiveArch:  i686 x86_64 armv7hl
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  mopidy
@@ -17,6 +19,7 @@ BuildRequires:  python3-responses
 BuildRequires:  python3-pyspotify
 Requires:       mopidy
 Requires:       python3-pyspotify
+
 
 %description
 Mopidy extension for playing music from Spotify.
